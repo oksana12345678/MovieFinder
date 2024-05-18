@@ -24,6 +24,7 @@ const MovieReviews = () => {
               <img
                 className={css.image}
                 src={`https://image.tmdb.org/t/p/w500${review.author_details.avatar_path}`}
+                alt={review.author_details.name}
               />
               <div className={css.author}>
                 <h2 className={css.title}>{review.author_details.name}</h2>

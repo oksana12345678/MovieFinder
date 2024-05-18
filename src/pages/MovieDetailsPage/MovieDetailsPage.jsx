@@ -1,13 +1,18 @@
 import { useParams, useLocation, Link, Outlet } from "react-router-dom";
 import BackLink from "../../components/BackLink/BackLink";
 import fetchDetails from "../../components/fetchDetails/fetchDetails";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import css from "./MovieDetailsPage.module.css";
 import { GiCharacter } from "react-icons/gi";
 import { MdOutlineRateReview } from "react-icons/md";
 
 const MovieDetailsPage = () => {
   const [movie, setMovie] = useState(null);
+  const scrollRef = useRef();
+
+  const handleScrollToCast = () => {
+    scrollRef.current.scrollIntoView({ top: 500, behavior: "smooth" });
+  };
 
   const location = useLocation();
   console.log(location);
@@ -58,13 +63,23 @@ const MovieDetailsPage = () => {
       </div>
       <ul className={css.list}>
         <li className={css.listItem}>
-          <Link className={css.listItem} to="cast">
+          <Link
+            className={css.listItem}
+            to="cast"
+            onClick={handleScrollToCast}
+            ref={scrollRef}
+          >
             <GiCharacter className={css.icon} />
             Cast
           </Link>
         </li>
         <li className={css.listItem}>
-          <Link className={css.listItem} to="reviews">
+          <Link
+            className={css.listItem}
+            to="reviews"
+            onClick={handleScrollToCast}
+            ref={scrollRef}
+          >
             <MdOutlineRateReview className={css.icon} />
             Reviews
           </Link>

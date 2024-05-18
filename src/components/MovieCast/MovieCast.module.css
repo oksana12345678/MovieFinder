@@ -15,9 +15,9 @@
   justify-content: center;
 }
 .image {
-  width: 140px;
-  height: 140px;
-  border-radius: 100px;
+  width: 160px;
+  height: 160px;
+  border-radius: 8px;
   object-fit: cover;
 }
 .title {
@@ -25,7 +25,7 @@
   font-weight: 700;
   margin-bottom: 10px;
   text-align: center;
-  color: rgb(205, 205, 205);
+  color: rgb(81, 80, 80);
 }
 .character,
 .popularity {
@@ -34,5 +34,5 @@
   font-weight: 400;
   margin-bottom: 10px;
   text-align: left;
-  color: rgb(205, 205, 205);
+  color: rgb(57, 55, 55);
 }

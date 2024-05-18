@@ -3,6 +3,8 @@
   display: flex;
   gap: 8px;
   margin-left: 32px;
-  color: rgb(4, 133, 246);
+  color: rgb(56, 57, 57);
   text-transform: uppercase;
+  z-index: 99999999;
+  margin-top: 40px;
 }

@@ -22,7 +22,7 @@
   font-weight: 700;
   margin-bottom: 10px;
   text-align: center;
-  color: rgb(205, 205, 205);
+  color: rgb(75, 75, 75);
 }
 .vote {
   display: flex;
@@ -40,7 +40,7 @@
   font-weight: 400;
   margin-bottom: 10px;
   text-align: center;
-  color: rgb(166, 166, 167);
+  color: rgb(82, 82, 83);
 }
 .genre {
   display: flex;
@@ -57,7 +57,7 @@
   margin-bottom: 10px;
   text-align: left;
   text-transform: uppercase;
-  color: rgb(166, 166, 167);
+  color: rgb(84, 84, 85);
 }
 .text {
   text-transform: uppercase;
@@ -68,7 +68,7 @@
   font-weight: 400;
   margin-bottom: 10px;
   text-align: left;
-  color: rgb(166, 166, 167);
+  color: rgb(73, 73, 75);
   width: 500px;
 }
 .list {
