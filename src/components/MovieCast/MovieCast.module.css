@@ -1,0 +1,38 @@
+.list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 32px;
+  list-style: none;
+  justify-content: center;
+}
+.listItem {
+  border: 1px solid #716f6f;
+  width: 220px;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.image {
+  width: 140px;
+  height: 140px;
+  border-radius: 100px;
+  object-fit: cover;
+}
+.title {
+  font-size: 20px;
+  font-weight: 700;
+  margin-bottom: 10px;
+  text-align: center;
+  color: rgb(205, 205, 205);
+}
+.character,
+.popularity {
+  text-transform: uppercase;
+  font-size: 16px;
+  font-weight: 400;
+  margin-bottom: 10px;
+  text-align: left;
+  color: rgb(205, 205, 205);
+}

@@ -1,0 +1,51 @@
+.container {
+  display: flex;
+}
+.list {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 32px;
+}
+.listItem {
+  font-size: 16px;
+  font-weight: 400;
+  margin-bottom: 10px;
+  text-align: left;
+  color: rgb(46, 46, 46);
+  background-color: rgb(174, 174, 174);
+  display: flex;
+  flex-direction: column;
+  text-decoration: none;
+  gap: 4px;
+  border: 1px solid rgb(80, 80, 247);
+  border-radius: 8px;
+  width: 432px;
+  padding: 16px;
+  overflow: auto;
+  height: 400px;
+  gap: 8px;
+}
+img {
+  width: 100px;
+  height: 100px;
+}
+.title {
+  font-size: 20px;
+  font-weight: 600;
+  color: rgb(46, 46, 46);
+}
+.rating {
+}
+.data {
+}
+.review {
+}
+.reviewsContainer {
+  display: flex;
+}
+.author {
+  padding-left: 24px;
+}

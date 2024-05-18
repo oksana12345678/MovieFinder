@@ -1,0 +1,8 @@
+.back {
+  align-items: center;
+  display: flex;
+  gap: 8px;
+  margin-left: 32px;
+  color: rgb(4, 133, 246);
+  text-transform: uppercase;
+}
