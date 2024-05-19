@@ -1,7 +1,9 @@
+import css from "./NoteFoundPage.module.css";
+
 const NoteFoundPage = () => {
   return (
-    <div>
-      <p>Note not found</p>
+    <div className={css.container}>
+      <p className={css.text}>Note not found</p>
     </div>
   );
 };

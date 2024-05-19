@@ -5,11 +5,10 @@ const Navigation = () => {
     <div className={css.container}>
       <nav className={css.navigation}>
         <NavLink className={css.home} to="/">
-          {" "}
           Home
         </NavLink>
-        <NavLink className={css.movie} to="/movie">
-          Movie
+        <NavLink className={css.movie} to="/movies">
+          Movies
         </NavLink>
       </nav>
     </div>
