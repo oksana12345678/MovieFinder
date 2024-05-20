@@ -2,17 +2,23 @@ import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import fetchCast from "../fetchCast/fetchCast";
 import css from "./MovieCast.module.css";
+import Alert from "@mui/material/Alert";
 
 const MovieCast = () => {
   const [allCast, setAllCast] = useState([]);
   const { movie_id } = useParams();
   useEffect(() => {
-    const loadCast = async () => {
-      const cast = await fetchCast(movie_id);
-      setAllCast(cast.data.cast);
-      console.log(cast.data.cast);
-    };
-    loadCast();
+    try {
+      const loadCast = async () => {
+        const cast = await fetchCast(movie_id);
+        setAllCast(cast.data.cast);
+      };
+      loadCast();
+    } catch (e) {
+      <Alert variant="filled" severity="error">
+        Sorry, something went wrong{e}
+      </Alert>;
+    }
   }, [movie_id]);
   return (
     <ul className={css.list}>

@@ -1,23 +1,49 @@
 import MovieList from "../../components/MovieList/MovieList";
 import SearchForm from "../../components/SearchForm/SearchForm";
 import NextPage from "../../components/NextPage/NextPage";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import fetchMovie from "../../components/fetchMovie/fetchMovie";
 import Alert from "@mui/material/Alert";
+import { useSearchParams } from "react-router-dom";
 
-const MoviePage = ({ onLoad }) => {
+const MoviesPage = ({ onLoad }) => {
   const [filmSearch, setFilmSearch] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [page, setPage] = useState(1);
+  const [searchParams, setSearchParams] = useSearchParams();
+
+  useEffect(() => {
+    const query = searchParams.get("searchTerm");
+
+    if (query) {
+      setSearchTerm(query);
+      const fetchInitialMovies = async () => {
+        try {
+          onLoad(true);
+          const data = await fetchMovie(query);
+          setFilmSearch(data.results);
+        } catch (error) {
+          <Alert variant="filled" severity="error">
+            Sorry, something went wrong{error}
+          </Alert>;
+        } finally {
+          onLoad(false);
+        }
+      };
+      fetchInitialMovies();
+    }
+  }, [searchParams, onLoad]);
 
   const handleMovie = async (searchTerm) => {
     try {
-      setFilmSearch([]);
       setPage(1);
       onLoad(true);
       const data = await fetchMovie(searchTerm);
       setSearchTerm(searchTerm);
       setFilmSearch(data.results);
+      setSearchParams({ query: searchTerm, page: 1 });
+
+      console.log(data.results);
     } catch (error) {
       <Alert variant="filled" severity="error">
         Sorry, something went wrong{error}
@@ -26,7 +52,10 @@ const MoviePage = ({ onLoad }) => {
       onLoad(false);
     }
   };
+
   const handleNextPage = async () => {
+    const pageParam = searchParams.get("page");
+    setPage(pageParam);
     try {
       onLoad(true);
       const nextPageData = await fetchMovie(searchTerm, page + 1);
@@ -47,4 +76,4 @@ const MoviePage = ({ onLoad }) => {
     </div>
   );
 };
-export default MoviePage;
+export default MoviesPage;

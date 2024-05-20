@@ -32,7 +32,10 @@ export default function App() {
               path="/movies"
               element={<MoviesPage onLoad={setLoading} />}
             />
-            <Route path="/movie/:movie_id" element={<MovieDetailsPage />}>
+            <Route
+              path="/movies/:movie_id"
+              element={<MovieDetailsPage backPath={location.pathname} />}
+            >
               <Route path="cast" element={<MovieCast />} />
               <Route path="reviews" element={<MovieReviews />} />
             </Route>

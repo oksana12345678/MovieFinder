@@ -1,40 +1,44 @@
-import { useParams, useLocation, Link, Outlet } from "react-router-dom";
+import { useParams, Link, Outlet } from "react-router-dom";
 import BackLink from "../../components/BackLink/BackLink";
 import fetchDetails from "../../components/fetchDetails/fetchDetails";
 import { useEffect, useState, useRef } from "react";
 import css from "./MovieDetailsPage.module.css";
 import { GiCharacter } from "react-icons/gi";
 import { MdOutlineRateReview } from "react-icons/md";
+import Alert from "@mui/material/Alert";
 
-const MovieDetailsPage = () => {
+const MovieDetailsPage = ({ backPath }) => {
   const [movie, setMovie] = useState(null);
   const scrollRef = useRef();
-
-  const handleScrollToCast = () => {
-    scrollRef.current.scrollIntoView({ top: 500, behavior: "smooth" });
-  };
-
-  const location = useLocation();
-  console.log(location);
   const { movie_id } = useParams();
 
+  const handleScrollToCast = () => {
+    scrollRef.current.scrollIntoView({ behavior: "smooth" });
+  };
   useEffect(() => {
-    const loadMovieDetails = async () => {
-      const details = await fetchDetails(movie_id);
-      setMovie(details);
-    };
-    loadMovieDetails();
+    try {
+      const loadMovieDetails = async () => {
+        const details = await fetchDetails(movie_id);
+        setMovie(details);
+      };
+      loadMovieDetails();
+    } catch (e) {
+      <Alert variant="filled" severity="error">
+        Sorry, something went wrong{e}
+      </Alert>;
+    }
   }, [movie_id]);
+  const backLinkHref = backPath ?? "/";
 
-  const backLinkHref = location.state ?? "/movie";
   if (!movie) {
     return <div>Loading...</div>;
   }
-  const { poster_path, title, vote_average, release_date, overview } = movie;
+  const { id, poster_path, title, vote_average, release_date, overview } =
+    movie;
   return (
     <section className={css.details}>
       <BackLink to={backLinkHref}>Back to products</BackLink>
-      <div className={css.mainContainer} key={movie.id}>
+      <div className={css.mainContainer} key={id}>
         <img
           className={css.paster}
           src={`https://image.tmdb.org/t/p/w500${poster_path}`}

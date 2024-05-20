@@ -15,6 +15,5 @@ export default async function fetchMovie(searchQuery, page) {
       Authorization: `Bearer ${TOKEN_KEY}`,
     },
   });
-  console.log(data.data);
   return data.data;
 }

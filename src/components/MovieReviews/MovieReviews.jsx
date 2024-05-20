@@ -2,18 +2,25 @@ import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import fetchReviews from "../fetchReviews/fetchReviews";
 import css from "./MovieReviews.module.css";
+import Alert from "@mui/material/Alert";
 
 const MovieReviews = () => {
   const [reviews, setReviews] = useState([]);
   const { movie_id } = useParams();
 
   useEffect(() => {
-    const loadCast = async () => {
-      const reviews = await fetchReviews(movie_id);
-      setReviews(reviews.data.results);
-      console.log(reviews.data.results);
-    };
-    loadCast();
+    try {
+      const loadCast = async () => {
+        const reviews = await fetchReviews(movie_id);
+        setReviews(reviews.data.results);
+        console.log(reviews.data.results);
+      };
+      loadCast();
+    } catch (error) {
+      <Alert variant="filled" severity="error">
+        Sorry, something went wrong{error}
+      </Alert>;
+    }
   }, [movie_id]);
   return (
     <div className={css.container}>
