@@ -23,7 +23,6 @@ const MovieReviews = () => {
     };
     loadReviews();
   }, [movie_id]);
-  console.log(error);
 
   return (
     <div className={css.container}>

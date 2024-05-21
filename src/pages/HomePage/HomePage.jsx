@@ -24,7 +24,6 @@ const HomePage = ({ onLoad }) => {
     };
     loadTrendingMovie();
   }, [onLoad, setMovies, error]);
-  console.log(error);
   return (
     <div>
       {error && <Error />}

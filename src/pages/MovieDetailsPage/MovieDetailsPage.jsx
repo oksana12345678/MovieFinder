@@ -1,7 +1,7 @@
 import { useParams, Link, Outlet, useLocation } from "react-router-dom";
 import BackLink from "../../components/BackLink/BackLink";
 import fetchDetails from "../../components/fetchDetails/fetchDetails";
-import { useEffect, useState, useRef, lazy } from "react";
+import { useEffect, useState, lazy } from "react";
 import css from "./MovieDetailsPage.module.css";
 import { GiCharacter } from "react-icons/gi";
 import { MdOutlineRateReview } from "react-icons/md";
@@ -11,15 +11,11 @@ const Loader = lazy(() => import("../../components/Loader/Loader"));
 const MovieDetailsPage = ({ onLoad }) => {
   const [movie, setMovie] = useState(null);
   const [error, setError] = useState(false);
-  const scrollRef = useRef();
   const { movie_id } = useParams();
   const location = useLocation();
 
   const backLink = location.state ?? "/";
 
-  const handleScrollToCast = () => {
-    scrollRef.current.scrollIntoView({ behavior: "smooth" });
-  };
   useEffect(() => {
     const loadMovieDetails = async () => {
       try {
@@ -76,25 +72,13 @@ const MovieDetailsPage = ({ onLoad }) => {
         </div>
         <ul className={css.list}>
           <li className={css.listItem}>
-            <Link
-              className={css.listItem}
-              to="cast"
-              state={backLink}
-              onClick={handleScrollToCast}
-              ref={scrollRef}
-            >
+            <Link className={css.listItem} to="cast" state={backLink}>
               <GiCharacter className={css.icon} />
               Cast
             </Link>
           </li>
           <li className={css.listItem}>
-            <Link
-              className={css.listItem}
-              to="reviews"
-              onClick={handleScrollToCast}
-              ref={scrollRef}
-              state={backLink}
-            >
+            <Link className={css.listItem} to="reviews" state={backLink}>
               <MdOutlineRateReview className={css.icon} />
               Reviews
             </Link>

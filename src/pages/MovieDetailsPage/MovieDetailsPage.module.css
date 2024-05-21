@@ -76,7 +76,8 @@
   display: flex;
   gap: 24px;
 }
-.listItem {
+.listItem,
+.listItems {
   font-size: 22px;
   font-weight: 400;
   margin-bottom: 10px;

@@ -7,6 +7,7 @@ const MovieCast = () => {
   const [allCast, setAllCast] = useState([]);
   const [error, setError] = useState(false);
   const { movie_id } = useParams();
+
   useEffect(() => {
     const loadCast = async () => {
       try {
@@ -20,7 +21,6 @@ const MovieCast = () => {
     };
     loadCast();
   }, [movie_id, setError]);
-  console.log(error);
   return (
     <div>
       {error && <Error />}
