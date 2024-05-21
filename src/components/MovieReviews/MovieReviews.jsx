@@ -2,28 +2,32 @@ import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import fetchReviews from "../fetchReviews/fetchReviews";
 import css from "./MovieReviews.module.css";
-import Alert from "@mui/material/Alert";
+import Error from "../Error//Error";
 
 const MovieReviews = () => {
   const [reviews, setReviews] = useState([]);
+  const [error, setError] = useState(false);
+
   const { movie_id } = useParams();
 
   useEffect(() => {
-    try {
-      const loadCast = async () => {
+    const loadReviews = async () => {
+      try {
+        setError(false);
+
         const reviews = await fetchReviews(movie_id);
         setReviews(reviews.data.results);
-        console.log(reviews.data.results);
-      };
-      loadCast();
-    } catch (error) {
-      <Alert variant="filled" severity="error">
-        Sorry, something went wrong{error}
-      </Alert>;
-    }
+      } catch (error) {
+        setError(true);
+      }
+    };
+    loadReviews();
   }, [movie_id]);
+  console.log(error);
+
   return (
     <div className={css.container}>
+      {error && <Error />}
       <ul className={css.list}>
         {reviews.map((review) => (
           <li className={css.listItem} key={review.id}>

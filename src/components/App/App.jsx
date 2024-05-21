@@ -1,9 +1,9 @@
-import { useState, lazy, Suspense } from "react";
+import { useState, lazy, Suspense, useRef } from "react";
 import Navigation from "../Navigation/Navigation";
-import Loader from "../Loader/Loader";
+const Loader = lazy(() => import("../Loader/Loader"));
 const HomePage = lazy(() => import("/src/pages/HomePage/HomePage"));
 const MoviesPage = lazy(() => import("../../pages/MoviesPage/MoviesPage"));
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, useLocation } from "react-router-dom";
 const NoteFoundPage = lazy(() =>
   import("../../pages/NoteFoundPage/NoteFoundPage")
 );
@@ -15,6 +15,8 @@ const MovieReviews = lazy(() => import("../MovieReviews/MovieReviews"));
 
 export default function App() {
   const [loading, setLoading] = useState(false);
+  const location = useLocation();
+  const backLinkRef = location.state ?? "/";
 
   return (
     <>
@@ -24,8 +26,8 @@ export default function App() {
         </div>
       </header>
       <main>
-        {loading && <Loader />}
         <Suspense fallback={<Loader />}>
+          {loading && <Loader />}
           <Routes>
             <Route path="/" element={<HomePage onLoad={setLoading} />} />
             <Route
@@ -34,7 +36,9 @@ export default function App() {
             />
             <Route
               path="/movies/:movie_id"
-              element={<MovieDetailsPage backPath={location.pathname} />}
+              element={
+                <MovieDetailsPage onLoad={setLoading} backPath={backLinkRef} />
+              }
             >
               <Route path="cast" element={<MovieCast />} />
               <Route path="reviews" element={<MovieReviews />} />

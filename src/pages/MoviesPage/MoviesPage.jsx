@@ -3,13 +3,14 @@ import SearchForm from "../../components/SearchForm/SearchForm";
 import NextPage from "../../components/NextPage/NextPage";
 import { useEffect, useState } from "react";
 import fetchMovie from "../../components/fetchMovie/fetchMovie";
-import Alert from "@mui/material/Alert";
 import { useSearchParams } from "react-router-dom";
+import Error from "../../components/Error/Error";
 
 const MoviesPage = ({ onLoad }) => {
   const [filmSearch, setFilmSearch] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [page, setPage] = useState(1);
+  const [error, setError] = useState(false);
   const [searchParams, setSearchParams] = useSearchParams();
 
   useEffect(() => {
@@ -19,13 +20,14 @@ const MoviesPage = ({ onLoad }) => {
       setSearchTerm(query);
       const fetchInitialMovies = async () => {
         try {
+          setError(false);
+
           onLoad(true);
           const data = await fetchMovie(query);
+
           setFilmSearch(data.results);
         } catch (error) {
-          <Alert variant="filled" severity="error">
-            Sorry, something went wrong{error}
-          </Alert>;
+          setError(true);
         } finally {
           onLoad(false);
         }
@@ -37,17 +39,18 @@ const MoviesPage = ({ onLoad }) => {
   const handleMovie = async (searchTerm) => {
     try {
       setPage(1);
+      setError(false);
+
       onLoad(true);
       const data = await fetchMovie(searchTerm);
       setSearchTerm(searchTerm);
       setFilmSearch(data.results);
+
       setSearchParams({ query: searchTerm, page: 1 });
 
       console.log(data.results);
     } catch (error) {
-      <Alert variant="filled" severity="error">
-        Sorry, something went wrong{error}
-      </Alert>;
+      setError(true);
     } finally {
       onLoad(false);
     }
@@ -61,8 +64,9 @@ const MoviesPage = ({ onLoad }) => {
       const nextPageData = await fetchMovie(searchTerm, page + 1);
       setPage((prevPage) => prevPage + 1);
       setFilmSearch((prevPage) => [...prevPage, ...nextPageData.results]);
+      setError(false);
     } catch (error) {
-      console.log(error);
+      setError(true);
     } finally {
       onLoad(false);
     }
@@ -70,6 +74,7 @@ const MoviesPage = ({ onLoad }) => {
 
   return (
     <div>
+      {error && <Error />}
       <SearchForm onSearch={handleMovie} />
       {filmSearch.length > 0 && <MovieList movies={filmSearch} />}
       {filmSearch.length > 0 && <NextPage onChang={handleNextPage} />}

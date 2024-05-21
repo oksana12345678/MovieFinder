@@ -1,27 +1,35 @@
-import MovieList from "../../components/MovieList/MovieList";
+import { lazy } from "react";
+
+const MovieList = lazy(() => import("../../components/MovieList/MovieList"));
 import { useState, useEffect } from "react";
 import fetchTrendingMovie from "../../components/fetchTrendingMovie/fetchTrendingMovie";
-import Alert from "@mui/material/Alert";
-
+import Error from "../../components/Error/Error";
 const HomePage = ({ onLoad }) => {
   const [movies, setMovies] = useState([]);
+  const [error, setError] = useState(false);
+
   useEffect(() => {
     const loadTrendingMovie = async () => {
       try {
         onLoad(true);
+
         const initMovie = await fetchTrendingMovie();
+        setError(false);
         setMovies(initMovie);
       } catch (error) {
-        <Alert variant="filled" severity="error">
-          Sorry, something went wrong{error}
-        </Alert>;
+        setError(true);
       } finally {
         onLoad(false);
       }
     };
     loadTrendingMovie();
-  }, [onLoad, setMovies]);
-
-  return <div>{movies.length > 0 && <MovieList movies={movies} />}</div>;
+  }, [onLoad, setMovies, error]);
+  console.log(error);
+  return (
+    <div>
+      {error && <Error />}
+      {movies.length > 0 && <MovieList movies={movies} />}
+    </div>
+  );
 };
 export default HomePage;

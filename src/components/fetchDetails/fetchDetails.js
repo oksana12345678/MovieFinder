@@ -9,6 +9,5 @@ export default async function fetchDetails(movie_id) {
       },
     }
   );
-  console.log(data.data);
   return data.data;
 }
