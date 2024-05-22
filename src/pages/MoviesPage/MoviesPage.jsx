@@ -14,16 +14,18 @@ const MoviesPage = ({ onLoad }) => {
   const [searchParams, setSearchParams] = useSearchParams();
 
   useEffect(() => {
-    const query = searchParams.get("searchTerm");
-
-    if (query) {
-      setSearchTerm(query);
+    const searchTerm = searchParams.get("query");
+    const page = parseInt(searchParams.get("page")) || 1;
+    if (searchTerm) {
+      setSearchTerm(searchTerm, page);
       const fetchInitialMovies = async () => {
         try {
           setError(false);
+          setPage(1);
+          setSearchParams({ query: searchTerm, page: 1 });
 
           onLoad(true);
-          const data = await fetchMovie(query);
+          const data = await fetchMovie(searchTerm, page);
 
           setFilmSearch(data.results);
         } catch (error) {
@@ -34,37 +36,27 @@ const MoviesPage = ({ onLoad }) => {
       };
       fetchInitialMovies();
     }
-  }, [searchParams, onLoad]);
+  }, [searchParams, onLoad, page, setSearchParams, searchTerm]);
 
   const handleMovie = async (searchTerm) => {
-    try {
-      setPage(1);
-      setError(false);
-
-      onLoad(true);
-      const data = await fetchMovie(searchTerm);
-      setSearchTerm(searchTerm);
-      setFilmSearch(data.results);
-
-      setSearchParams({ query: searchTerm, page: 1 });
-
-      console.log(data.results);
-    } catch (error) {
-      setError(true);
-    } finally {
-      onLoad(false);
-    }
+    setPage(1);
+    setSearchTerm(searchTerm);
+    setSearchParams({ query: searchTerm, page: 1 });
   };
 
   const handleNextPage = async () => {
     const pageParam = searchParams.get("page");
     setPage(pageParam);
     try {
-      onLoad(true);
-      const nextPageData = await fetchMovie(searchTerm, page + 1);
-      setPage((prevPage) => prevPage + 1);
-      setFilmSearch((prevPage) => [...prevPage, ...nextPageData.results]);
       setError(false);
+
+      onLoad(true);
+      const nextPage = page + 1;
+
+      const nextPageData = await fetchMovie(searchTerm, nextPage);
+      setPage(nextPage);
+      setFilmSearch((prevPage) => [...prevPage, ...nextPageData.results]);
+      setSearchParams({ query: searchTerm, page: nextPage });
     } catch (error) {
       setError(true);
     } finally {

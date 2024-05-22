@@ -11,7 +11,7 @@ const Loader = lazy(() => import("../../components/Loader/Loader"));
 const MovieDetailsPage = ({ onLoad }) => {
   const [movie, setMovie] = useState(null);
   const [error, setError] = useState(false);
-  const { movie_id } = useParams();
+  const { movieId } = useParams();
   const location = useLocation();
 
   const backLink = location.state ?? "/";
@@ -20,7 +20,7 @@ const MovieDetailsPage = ({ onLoad }) => {
     const loadMovieDetails = async () => {
       try {
         onLoad(true);
-        const details = await fetchDetails(movie_id);
+        const details = await fetchDetails(movieId);
         setMovie(details);
         setError(false);
       } catch (error) {
@@ -30,7 +30,7 @@ const MovieDetailsPage = ({ onLoad }) => {
       }
     };
     loadMovieDetails();
-  }, [movie_id, error, onLoad]);
+  }, [movieId, error, onLoad]);
 
   if (!movie) {
     return <Loader />;

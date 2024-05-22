@@ -1,6 +1,6 @@
 import { useState, lazy, Suspense } from "react";
 import Navigation from "../Navigation/Navigation";
-const Loader = lazy(() => import("../Loader/Loader"));
+import Loader from "../Loader/Loader";
 const HomePage = lazy(() => import("/src/pages/HomePage/HomePage"));
 const MoviesPage = lazy(() => import("../../pages/MoviesPage/MoviesPage"));
 import { Routes, Route } from "react-router-dom";
@@ -24,8 +24,8 @@ export default function App() {
         </div>
       </header>
       <main>
+        {loading && <Loader />}
         <Suspense fallback={<Loader />}>
-          {loading && <Loader />}
           <Routes>
             <Route path="/" element={<HomePage onLoad={setLoading} />} />
             <Route
@@ -33,7 +33,7 @@ export default function App() {
               element={<MoviesPage onLoad={setLoading} />}
             />
             <Route
-              path="/movies/:movie_id"
+              path="/movies/:movieId"
               element={<MovieDetailsPage onLoad={setLoading} />}
             >
               <Route path="cast" element={<MovieCast />} />

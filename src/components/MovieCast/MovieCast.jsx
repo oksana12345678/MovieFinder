@@ -6,21 +6,21 @@ import Error from "../Error/Error";
 const MovieCast = () => {
   const [allCast, setAllCast] = useState([]);
   const [error, setError] = useState(false);
-  const { movie_id } = useParams();
+  const { movieId } = useParams();
 
   useEffect(() => {
     const loadCast = async () => {
       try {
         setError(false);
 
-        const cast = await fetchCast(movie_id);
+        const cast = await fetchCast(movieId);
         setAllCast(cast.data.cast);
       } catch (error) {
         setError(true);
       }
     };
     loadCast();
-  }, [movie_id, setError]);
+  }, [movieId, setError]);
   return (
     <div>
       {error && <Error />}

@@ -8,21 +8,21 @@ const MovieReviews = () => {
   const [reviews, setReviews] = useState([]);
   const [error, setError] = useState(false);
 
-  const { movie_id } = useParams();
+  const { movieId } = useParams();
 
   useEffect(() => {
     const loadReviews = async () => {
       try {
         setError(false);
 
-        const reviews = await fetchReviews(movie_id);
+        const reviews = await fetchReviews(movieId);
         setReviews(reviews.data.results);
       } catch (error) {
         setError(true);
       }
     };
     loadReviews();
-  }, [movie_id]);
+  }, [movieId]);
 
   return (
     <div className={css.container}>
