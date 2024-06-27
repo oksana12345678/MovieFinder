@@ -1,10 +1,23 @@
 .back {
   align-items: center;
   display: flex;
+  flex-direction: row;
   gap: 8px;
   margin-left: 32px;
-  color: rgb(56, 57, 57);
+  color: rgb(209, 242, 242);
   text-transform: uppercase;
   z-index: 99999999;
-  margin-top: 40px;
+  margin-top: 24px;
+  font-size: 16px;
+  font-weight: 600;
+  background-color: rgb(3, 86, 253);
+  width: 90px;
+  height: 30px;
+  padding: 8px;
+  border-radius: 8px;
+  cursor: pointer;
+  text-decoration: none;
+}
+.back:hover {
+  background-color: rgba(6, 56, 254, 0.681);
 }

@@ -41,8 +41,8 @@ const MovieDetailsPage = ({ onLoad }) => {
   return (
     <section className={css.details}>
       {error && <Error />}
-      <BackLink to={backLink}>Back to products</BackLink>
-      <div>
+      <BackLink to={backLink}>Back </BackLink>
+      <div className={css.container}>
         <div className={css.mainContainer} key={id}>
           <img
             className={css.paster}
@@ -57,19 +57,20 @@ const MovieDetailsPage = ({ onLoad }) => {
                 Genre:
                 {movie.genres.map((genre) => (
                   <span key={genre.id}>
-                    <span>{genre.name},</span>
+                    <span>{genre.name}</span>
                   </span>
                 ))}
               </p>
             </div>
           </div>
-          <div className={css.containerDesc}>
-            <p className={css.release}>Release Date: {release_date}</p>
-            <p className={css.overview}>
-              <span className={css.text}>Overview:</span> {overview}
-            </p>
-          </div>
         </div>
+        <div className={css.containerDesc}>
+          <p className={css.release}>Release Date: {release_date}</p>
+          <p className={css.overview}>
+            <span className={css.text}>Overview:</span> {overview}
+          </p>
+        </div>
+
         <ul className={css.list}>
           <li className={css.listItem}>
             <Link className={css.listItem} to="cast" state={backLink}>
