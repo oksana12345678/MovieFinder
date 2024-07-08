@@ -6,13 +6,15 @@ const MovieList = ({ movies }) => {
     <ul className={css.list}>
       {movies.map((movie) => (
         <li className={css.listItem} key={movie.id}>
-          <Link to={`/movies/${movie.id}`} state={location}>
+          <Link className={css.link} to={`/movies/${movie.id}`} state={location}>
             <img
               className={css.poster}
               src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
               alt={movie.title}
             />
-            <h2 className={css.title}>{movie.title}</h2>
+            <div className={css.titleContainer}>
+              <h2 className={css.title}>{movie.title}</h2>
+            </div>
           </Link>
         </li>
       ))}

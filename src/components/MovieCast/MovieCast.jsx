@@ -25,19 +25,23 @@ const MovieCast = () => {
     <div>
       {error && <Error />}
       <ul className={css.list}>
-        {allCast.map((cast) => (
-          <li className={css.listItem} key={cast.id}>
-            <img
-              className={css.image}
-              src={`https://image.tmdb.org/t/p/w500${cast.profile_path}`}
-              alt={cast.name}
-            />
+        {allCast.length > 0 ? (
+          allCast.map((cast) => (
+            <li className={css.listItem} key={cast.id}>
+              <img
+                className={css.image}
+                src={`https://image.tmdb.org/t/p/w500${cast.profile_path}`}
+                alt={cast.name}
+              />
 
-            <h2 className={css.title}>{cast.name}</h2>
-            <p className={css.character}>Character: {cast.character}</p>
-            <p className={css.popularity}>Popularity: {cast.popularity}</p>
-          </li>
-        ))}
+              <h2 className={css.title}>{cast.name}</h2>
+              <p className={css.character}>Character: {cast.character}</p>
+              <p className={css.popularity}>Popularity: {cast.popularity}</p>
+            </li>
+          ))
+        ) : (
+          <p className={css.}>Sorry, no cast information!</p>
+        )}
       </ul>
     </div>
   );

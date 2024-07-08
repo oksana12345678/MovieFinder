@@ -1,6 +1,8 @@
 @media screen and (min-width: 320px) {
   .container {
     display: flex;
+    align-items: center;
+    justify-content: center;
   }
   .list {
     list-style: none;
@@ -23,7 +25,7 @@
     gap: 4px;
     border: 1px solid rgb(80, 80, 247);
     border-radius: 8px;
-    width: 300px;
+    width: 286px;
     padding: 16px;
     overflow: auto;
     height: 400px;
@@ -43,6 +45,11 @@
   }
   .author {
     padding-left: 24px;
+  }
+  .noReviews {
+    font-size: 30px;
+    color: #c5c2c2;
+    padding-bottom: 16px;
   }
 }
 @media screen and (min-width: 768px) {

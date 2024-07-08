@@ -56,7 +56,7 @@ const MovieDetailsPage = ({ onLoad }) => {
               <p className={css.genre}>
                 Genre:
                 {movie.genres.map((genre) => (
-                  <span key={genre.id}>
+                  <span className={css.genreName} key={genre.id}>
                     <span>{genre.name}</span>
                   </span>
                 ))}
