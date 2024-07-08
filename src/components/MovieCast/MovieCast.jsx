@@ -40,7 +40,7 @@ const MovieCast = () => {
             </li>
           ))
         ) : (
-          <p className={css.}>Sorry, no cast information!</p>
+          <p className={css.noCast}>Sorry, no cast information!</p>
         )}
       </ul>
     </div>
